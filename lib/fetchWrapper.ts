@@ -3,7 +3,7 @@
 
 export const API_BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || 'https://app.realestatezone.com.ng/api/v1';
 
-export const fetchWrapper = async (endpoint, options = {}) => {
+export const fetchWrapper = async (endpoint : any, options = {}) => {
     // Construct full URL if relative path is provided
     const url = endpoint.startsWith('http') ? endpoint : `${API_BASE_URL}${endpoint}`;
 

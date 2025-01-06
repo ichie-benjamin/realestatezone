@@ -1,6 +1,6 @@
 
 
-import Axios, {AxiosError, AxiosRequestHeaders, CreateAxiosDefaults} from 'axios'
+import Axios, {AxiosError} from 'axios'
 
 
 
@@ -10,16 +10,14 @@ type ApiError = AxiosError<{
 }>
 
 
-const axiosConfig: CreateAxiosDefaults = {
+const axios = Axios.create({
     baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
-    withCredentials: true,
     headers: {
         'X-Requested-With': 'XMLHttpRequest',
-    } as AxiosRequestHeaders,
-    withXSRFToken: true,
-};
-
-const axios = Axios.create(axiosConfig);
+    },
+    withCredentials: true,
+    withXSRFToken: true
+})
 
 
 axios.interceptors.response.use(
