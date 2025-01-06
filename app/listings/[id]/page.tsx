@@ -32,6 +32,7 @@ import Listings from "@/components/Listings";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery } from "@tanstack/react-query";
+import {fetchWrapper} from "@/lib/fetchWrapper";
 
 interface PropertyDetails {
   title: string;
@@ -79,13 +80,10 @@ const ListingDetailPage = ({
   const { data, isLoading, error } = useQuery<ApiResponse, Error>({
     queryKey: ["productId", id],
     queryFn: async () => {
-      const res = await fetch(
-        `https://realestate.surdonline.com/api/v1/listing/${id}`
+      const res = await fetchWrapper(
+        `/listing/${id}`
       );
-      if (!res.ok) {
-        throw new Error(`Error fetching data: ${res.statusText}`);
-      }
-      const data: ApiResponse = await res.json();
+      const data: ApiResponse = await res;
 
       return data;
     },

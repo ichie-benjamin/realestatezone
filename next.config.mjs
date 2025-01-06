@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["realestate.surdonline.com"],
+    domains: ["realestatezone.com.ng"],
   },
 };
 

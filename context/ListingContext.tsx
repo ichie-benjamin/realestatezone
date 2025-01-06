@@ -1,6 +1,7 @@
 "use client";
 import React, { createContext, useContext } from "react";
 import { useQuery } from "@tanstack/react-query";
+import {fetchWrapper} from "@/lib/fetchWrapper";
 
 export interface Listing {
   title: string;
@@ -40,17 +41,13 @@ export const useListings = () => {
 export const ListingProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const BASE_API_URL = "https://realestate.surdonline.com/api/v1/listings";
+  const BASE_API_URL = "/listings";
 
   // Function to fetch listings
   const fetchListings = async () => {
     const url = `${BASE_API_URL}`;
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const jsonData = await response.json();
-    return jsonData.data;
+    const response = await fetchWrapper(url);
+    return response.data;
   };
 
   const {

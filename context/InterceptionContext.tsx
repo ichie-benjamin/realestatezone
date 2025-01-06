@@ -1,6 +1,7 @@
 "use client";
 import React, { createContext, useContext } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import {fetchWrapper} from "@/lib/fetchWrapper";
 
 export interface Listing {
   title: string;
@@ -48,7 +49,7 @@ export const useInterceptingListing = () => {
 export const InterceptionContext: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const BASE_API_URL = "https://realestate.surdonline.com/api/v1/listings";
+  const BASE_API_URL = "/listings";
 
   // Modified fetch function for infinite query
   const fetchListings = async (
@@ -63,13 +64,7 @@ export const InterceptionContext: React.FC<{ children: React.ReactNode }> = ({
       queryParams ? `&${queryParams}` : ""
     }`;
 
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-
-    const jsonData = await response.json();
+    const jsonData = await fetchWrapper(url);
 
     return {
       data: jsonData.data,
