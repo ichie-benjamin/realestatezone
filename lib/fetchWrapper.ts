@@ -13,6 +13,7 @@ export const fetchWrapper = async (endpoint : any, options = {}) => {
             'Content-Type': 'application/json',
         },
         timeout: 8000,
+
     };
 
     // Merge options
